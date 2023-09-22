@@ -1,7 +1,8 @@
 // TODO: Include packages needed for this application\
 const inquirer = require ('inquirer');
 const fs = require('fs');
-
+const generateReadMe = ( {project, description, install, usage, contribution, license}) =>
+``
 
 // TODO: Create an array of questions for user input
 const questions = [];
@@ -37,10 +38,30 @@ inquirer
         type: 'checkbox',
         message: 'Please select a license:',
         name: ' license',
-        choices: [ 'BSD','MIT','GPL'],
+        choices: [ 
+            {
+             name: 'BSD',
+             value: '[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)' ,  
+            },
+            {
+                name:'MIT',
+                value: '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)',
+            },
+            {
+                name:'GPL',
+                value: '[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)',
+            }
+
+            
+            ],
     },
 ])
-
+.then( (response)=> {
+    console.log( response);
+    fs.writeFile('readMe.txt', JSON.stringify(response),(err) =>
+    err ? console.error(err) : console.log('sucess !'))
+}
+);
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}
 
