@@ -9,66 +9,37 @@ inquirer
 .prompt(  [
     {
         type: 'input',
-        message: 'Name of project',
+        message: 'What is the name of your project Name of project ?',
         name: ' project',
     },
 
     {
         type: 'input',
-        message: 'Name of project',
-        name: ' project',
+        message: 'What is the description of your project? ',
+        name: ' description',
     },
     {
         type: 'input',
-        message: 'Name of project',
-        name: ' project',
+        message: 'How do you install your project?',
+        name: ' install',
     },
     {
         type: 'input',
-        message: 'Name of project',
-        name: ' project',
+        message: 'Please provide some usage information? ',
+        name: ' usage',
     },
     {
         type: 'input',
-        message: 'Name of project',
-        name: ' project',
+        message: 'Contribution guidelines? ',
+        name: ' contribution',
     },
     {
-        type: 'input',
-        message: 'Name of project',
-        name: ' project',
+        type: 'checkbox',
+        message: 'Please select a license:',
+        name: ' license',
+        choices: [ 'BSD','MIT','GPL'],
     },
-    {
-        type: 'input',
-        message: 'Name of project',
-        name: ' project',
-    },
-
-
-
-
-
-
-
-]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-)
+])
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}
