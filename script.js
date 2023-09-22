@@ -1,5 +1,5 @@
 // TODO: Include packages needed for this application\
-const inquirer = require ('inquirer');
+const inquirer = require('inquirer');
 const fs = require('fs');
 const generateReadMe = ( {project, description, install, usage, contribution, license}) =>
 `# <Project-Title:${project} >
@@ -34,15 +34,15 @@ What are the steps required to install your project? Provide a step-by-step desc
 Provide instructions and examples for use. Include screenshots as needed.
 
 
-## Credits
+## Credits: ${contribution}
 
 List your collaborators
 
-## License
-`
+## License: ${license}
+`;
 
 // TODO: Create an array of questions for user input
-const questions = [];
+//const questions = [];
 inquirer
 .prompt(  [
     {
@@ -72,6 +72,11 @@ inquirer
         name: ' contribution',
     },
     {
+        type: 'input',
+        message: 'What is your github username',
+        name: ' contribution',
+    },
+    {
         type: 'checkbox',
         message: 'Please select a license:',
         name: ' license',
@@ -93,17 +98,19 @@ inquirer
             ],
     },
 ])
+// TODO: Create a function to write README file
 .then( (response)=> {
+    const txtPage =generateReadMe(response);
     console.log( response);
-    fs.writeFile('readMe.txt', JSON.stringify(response),(err) =>
-    err ? console.error(err) : console.log('sucess !'))
+    fs.writeFile('readMe.txt', txtPage,(err) =>
+    err ? console.error(err) : console.log('sucess !'));
 }
 );
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+
+
 
 // TODO: Create a function to initialize app
-function init() {}
+//function init() {}
 
 // Function call to initialize app
-init();
+//init();
