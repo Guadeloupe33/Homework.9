@@ -1,116 +1,80 @@
-// TODO: Include packages needed for this application\
-const inquirer = require('inquirer');
-const fs = require('fs');
-const generateReadMe = ( {project, description, install, usage, contribution, license}) =>
-`# <Project-Title:${project} >
+// Declarations and dependencies
+const fs = require("fs");
+const util = require("util");
+const inquirer = require("inquirer");
+const generateMarkdown = require("./utils/generateMarkdown")
+const writeFileAsync = util.promisify(fs.writeFile);
 
+//Questions
+function promptUser() {
+    return inquirer.prompt([{
+            type: "input",
+            name: "projectName",
+            message: "What is the title of the project?",
+        },
+        {
+            type: "input",
+            name: "summary",
+            message: "Provide a project summary"
+        },
+        {
+            type: "input",
+            name: "installation",
+            message: "How does one install this project? ",
+        },
+        {
+            type: "input",
+            name: "functionality",
+            message: "What function does the application in this project perform?"
+        },
+        {
+            type: "input",
+            name: "credits",
+            message: "List your collaborators and any attributions that need to be made"
+        },
+        {
+            type: "list",
+            name: "license",
+            message: "How do you want to license this project? ",
+            choices: [
+                "Apache",
+                "Academic",
+                "GNU",
+                "ISC",
+                "MIT",
+                "Mozilla",
+                "Open"
+            ]
+        },
 
-
-## Table of Contents 
-
-If your README is long, add a table of contents to make it easy for users to find what they need.
-
-- [Description]
-- [Install]
-- [Usage]
-- [Contribution]
-- [License]
-
-## Description:${description}
-
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
-
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
-
-## Installation: ${install}
-
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
-
-## Usage: ${usage}
-
-Provide instructions and examples for use. Include screenshots as needed.
-
-
-## Credits: ${contribution}
-
-List your collaborators
-
-## License: ${license}
-`;
-
-// TODO: Create an array of questions for user input
-//const questions = [];
-inquirer
-.prompt(  [
-    {
-        type: 'input',
-        message: 'What is the name of your project Name of project ?',
-        name: ' project',
-    },
-
-    {
-        type: 'input',
-        message: 'What is the description of your project? ',
-        name: ' description',
-    },
-    {
-        type: 'input',
-        message: 'How do you install your project?',
-        name: ' install',
-    },
-    {
-        type: 'input',
-        message: 'Please provide some usage information? ',
-        name: ' usage',
-    },
-    {
-        type: 'input',
-        message: 'Contribution guidelines? ',
-        name: ' contribution',
-    },
-    {
-        type: 'input',
-        message: 'What is your github username',
-        name: ' contribution',
-    },
-    {
-        type: 'checkbox',
-        message: 'Please select a license:',
-        name: ' license',
-        choices: [ 
-            {
-             name: 'BSD',
-             value: '[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)' ,  
-            },
-            {
-                name:'MIT',
-                value: '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)',
-            },
-            {
-                name:'GPL',
-                value: '[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)',
-            }
-
-            
-            ],
-    },
-])
-// TODO: Create a function to write README file
-.then( (response)=> {
-    const txtPage =generateReadMe(response);
-    console.log( response);
-    fs.writeFile('readMe.txt', txtPage,(err) =>
-    err ? console.error(err) : console.log('sucess !'));
+        {
+            type: "input",
+            name: "testFunctions",
+            message: "Is there a test function for the application? "
+        },
+        {
+            type: "input",
+            name: "user",
+            message: "Please enter your GitHub username: "
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Please enter your email: "
+        }
+    ]);
 }
-);
 
-
-
-// TODO: Create a function to initialize app
-//function init() {}
-
-// Function call to initialize app
-//init();
+// Async function
+async function init() {
+    try {
+        const data = await promptUser();
+        const generateContent = generateMarkdown(data);
+        await writeFileAsync('./src/README.md', generateContent);
+        console.log('README Generated!');
+    } catch (err) {
+        console.log(err);
+    }
+}
+// Init
+init();
