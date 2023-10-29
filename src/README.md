@@ -1,10 +1,10 @@
 
 
-# This is a template. 
+# readme generator
 
 ## Summary
-![badge](https://img.shields.io/badge/license-Open-blue)<br />
-This is test output for the readme generator function. 
+![badge](https://img.shields.io/badge/license-MIT-blue)<br />
+it is creating a readme 
 
 ## Table of Contents
 - [Description](#description)
@@ -16,21 +16,21 @@ This is test output for the readme generator function.
 - [Questions](#questions)
 
 ## Installation
-npm init, npm install inquirer from the command line
+npm i, and then node script
 
 ## Functionality
-Generates a readme
+npm i, and then node script
 
 ## Credits
-No collaborators
+i created this alone 
 
 ## License
-This application is covered by the Open license. 
+This application is covered by the MIT license. 
 <br />
-![badge](https://img.shields.io/badge/license-Open-blue)
+![badge](https://img.shields.io/badge/license-MIT-blue)
 
 ## Tests
-node index.js
+no there is not
 
 ## Questions
 Follow me on Github: [Guadeloupe33](https://github.com/Guadeloupe33)
